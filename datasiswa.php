@@ -67,7 +67,7 @@ $dp = new database();
                 <i class="bi bi-list"></i>
               </a>
             </li>
-            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
+            <li class="nav-item d-none d-md-block"><a href="dashboard.php" class="nav-link">Home</a></li>
             <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a></li>
           </ul>
           <!--end::Start Navbar Links-->
@@ -267,7 +267,7 @@ $dp = new database();
            <div class="row">
   <div class="col-12 text-center">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
       <li class="breadcrumb-item active" aria-current="page">Data Siswa</li>
     </ol>
   </div>
