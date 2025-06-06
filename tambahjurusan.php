@@ -11,7 +11,7 @@ session_start();
 </head>
 <body>
     <div class="container">
-        <h2>Form Tambah Data Jurusan</h2>
+        <h2>Form Tambah Jurusan</h2>
         <?php
         if (isset($_SESSION['message'])) {
             echo "<p>" . $_SESSION['message'] . "</p>";
