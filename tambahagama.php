@@ -33,6 +33,7 @@ session_start();
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $idagama = $_POST['idagama'];
     $nama_agama = $_POST['nama_agama'];
 
     // Koneksi ke database
@@ -47,17 +48,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Koneksi gagal: " . $conn->connect_error);
     }
 
-    $sql = "INSERT INTO agama (nama_agama) 
-            VALUES ('$nama_agama')";
-
-    if ($conn->query($sql) === TRUE) {
-        $_SESSION['message'] = "Agama berhasil ditambahkan";
-    } else {
-        $_SESSION['message'] = "Error: " . $sql . "<br>" . $conn->error;
+    // Gunakan prepared statement untuk keamanan
+    $stmt = $conn->prepare("INSERT INTO agama (idagama, nama_agama) VALUES (?, ?)");
+    $stmt->bind_param("ss", $idagama, $nama_agama);
+    if ($stmt->execute()) {
+        $_SESSION['message'] = "Error: " . $stmt->error;
     }
 
+    $stmt->close();
     $conn->close();
-    header("Location: tambahagama.php");
+    header("Location: dataagama.php");
     exit();
 }
 ?>

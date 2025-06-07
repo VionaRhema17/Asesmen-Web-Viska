@@ -84,6 +84,18 @@ html, body {
     transition: background-color 0.3s ease;
 }
 
+.btn-delete {
+    background-color: #fe3b4f; /* Red color */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
 .btn-edit:hover {
     background-color: #1852ae; /* Darker yellow on hover */
 }

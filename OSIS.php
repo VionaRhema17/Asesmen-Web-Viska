@@ -38,7 +38,7 @@ $dp = new database();
     />
     <!--end::Third Party Plugin(OverlayScrollbars)-->
     <!-- Custom CSS -->
-<link rel="stylesheet" href="dataagama.css?">
+<link rel="stylesheet" href="datasiswa.css">
     <!--begin::Third Party Plugin(Bootstrap Icons)-->
     <link
       rel="stylesheet"
@@ -57,7 +57,7 @@ $dp = new database();
     <!--begin::App Wrapper-->
     <div class="app-wrapper">
       <!--begin::Header-->
-       <nav class="app-header navbar navbar-expand bg-body">
+      <nav class="app-header navbar navbar-expand bg-body">
         <!--begin::Container-->
         <div class="container-fluid">
           <!--begin::Start Navbar Links-->
@@ -151,87 +151,15 @@ $dp = new database();
           <!--begin::Container-->
           <div class="container-fluid">
             <!--begin::Row-->
-          <div class="row">
+           <div class="row">
   <div class="col-12 text-center">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Data Agama</li>
+      <li class="breadcrumb-item active" aria-current="page">Ekstrakurikuler</li>
+       <li class="breadcrumb-item active" aria-current="page">OSIS</li>
     </ol>
   </div>
 </div>
-            <!--end::Row-->
-          </div>
-          <!--end::Container-->
-        </div>
-        <!--end::App Content Header-->
-        <!--begin::App Content-->
-        <div class="app-content">
-          <!--begin::Container-->
-          <div class="container-fluid">
-            <!--begin::Row-->
-            <div class="row">
-              <div class="col-md-12">
-                <!-- /.card -->
-                <div class="card mb-4">
-                <div class="card-header">
-  <h3 class="card-title text-center" style="font-size: 1.5rem;">TABEL DATA AGAMA</h3>
-</div>
-                  <!-- /.card-header -->
-                  <table class="table table-bordered">
-                      <thead>
-                          <tr>
-                              <th>ID Agama</th>
-                              <th>Agama</th>
-                              <th>Option</th>
-                          </tr>
-                      </thead>
-            <tbody>
-    <?php
-  $no = 1;
-  foreach($dp->tampil_data_agama() as $x){
-        ?>
-        <tr>
-            <td><?php echo $x['idagama']; ?></td>
-            <td><?php echo $x['nama_agama']; ?></td>
-            <td>
-              <a href="edit_agama.php?idagama=<?php echo htmlspecialchars($x['idagama']); ?>" class="btn-edit">Edit</a>
-              <a href="hapus_agama.php?idagama=<?php echo htmlspecialchars($x['idagama']); ?>" class="btn-delete">Hapus</a>
-            </td>
-        </tr>
-      
-      <?php
-  }  
-  ?>
-  </tbody>
-                    </table>
-                  </div>
-                  <!-- /.card-body -->  
-              </div>
-              <div class="d-flex justify-content-center mt-1">
-                  <a href="tambahagama.php" class="btn btn-primary">Tambah Agama</a>
-              </div>
-            
-                <!-- /.card -->
-              </div>
-              
-              <!-- /.col -->
-            </div>
-            
-            <!--end::Row-->
-          </div>
-          
-          <!--end::Container-->
-        </div>
-        
-        <!--end::App Content-->
-         <!-- Tombol Tambah Siswa -->
-
-      </main>
-      <!--end::App Main-->
-      <!--begin::Footer-->
-    
-      <!--end::Footer-->
-    </div>
     <!--end::App Wrapper-->
     <!--begin::Script-->
     <!--begin::Third Party Plugin(OverlayScrollbars)-->

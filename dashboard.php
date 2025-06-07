@@ -11,6 +11,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
 <html lang="en">
   <!--begin::Head-->
   <head>
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>AdminLTE v4 | Dashboard</title>
     <!--begin::Primary Meta Tags-->
@@ -241,15 +244,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
                   </div>
                   <img src="pie-chart.png" alt="Piechart Icon"
                     style="position: absolute; top: 0; right: 10px; height: 85%; opacity: 0.1;" />
-
-
-                    <a
-                    href="javascript:void(0);"
-                    onclick="bukaSidebarEkstrakurikuler()"
-                    class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
+                <a
+                  href="javascript:void(0);"
+                  onclick="bukaMenuEkstrakurikuler()"
+                  class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
                   >
-                    Selengkapnya <i class="bi bi-link-45deg"></i>
-                  </a>
+                  Selengkapnya <i class="bi bi-link-45deg"></i>
+                </a>
+
                 </div>
                 <!--end::Small Box Widget 3-->
               </div>
@@ -262,7 +264,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
                     <p>Akreditasi</p>
                   </div>
                    <img src="book.png" alt="Book Icon"
-     style="position: absolute; top: 0; right: 10px; height: 85%; opacity: 0.09;" />
+                      style="position: absolute; top: 0; right: 10px; height: 85%; opacity: 0.09;" />
                   <a
                     href="#"
                     class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
@@ -451,6 +453,57 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
   sales_chart.render();
 </script>
 
+<script>
+function bukaMenuEkstrakurikuler() {
+  const sidebar = document.querySelector('.main-sidebar'); // Ganti selector sesuai layout kamu
+  const body = document.body;
+  const menuLink = document.getElementById('menu-ekstrakurikuler');
+  const treeview = menuLink.nextElementSibling;
+
+  // 1. Jika sidebar sedang collapse (cek class body)
+  const isSidebarCollapsed = body.classList.contains('sidebar-collapse');
+  if (isSidebarCollapsed) {
+    body.classList.remove('sidebar-collapse'); // Buka sidebar
+  }
+
+  // Delay agar sidebar selesai membuka dulu sebelum scroll & buka menu
+  setTimeout(() => {
+    if (treeview && treeview.classList.contains('nav-treeview')) {
+      const isVisible = treeview.style.display === 'block';
+
+      if (isVisible) {
+        // Jika sudah terbuka, tutup
+        treeview.style.display = 'none';
+        menuLink.classList.remove('active');
+        updatePanah(false);
+      } else {
+        // Buka submenu Ekstrakurikuler
+        treeview.style.display = 'block';
+        menuLink.classList.add('active');
+        menuLink.scrollIntoView({ behavior: 'smooth' });
+        updatePanah(true);
+      }
+    }
+  }, 300); // waktu tunggu animasi buka sidebar (atur sesuai kebutuhan)
+}
+
+// Fungsi bantu untuk ubah ikon panah kanan ⇄ bawah
+function updatePanah(buka) {
+  const ikonPanah = document.getElementById("ikon-panah-ekstrakurikuler");
+  if (ikonPanah) {
+    if (buka) {
+      ikonPanah.classList.remove("bi-chevron-right");
+      ikonPanah.classList.add("bi-chevron-down");
+    } else {
+      ikonPanah.classList.remove("bi-chevron-down");
+      ikonPanah.classList.add("bi-chevron-right");
+    }
+  }
+}
+</script>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
     <!--end::Script-->

@@ -38,6 +38,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="Tentang.php" class="nav-link">
+                  <i class="nav-icon bi bi-patch-check-fill"></i>
+                  <p>Tentang</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-table"></i>
                   <p>
@@ -105,13 +111,13 @@
                 <p>
                   Ekstrakurikuler
                   <span class="nav-badge badge text-bg-secondary me-3">14</span>
-                  <i class="nav-arrow bi bi-chevron-right"></i>
+                 <i id="ikon-panah-ekstrakurikuler" class="nav-arrow bi bi-chevron-right"></i>
                 </p>
               </a>
 
                 <ul class="nav nav-treeview" style="display: none;">
                   <li class="nav-item">
-                    <a href="./layout/unfixed-sidebar.html" class="nav-link">
+                    <a href="OSIS.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>OSIS</p>
                     </a>
@@ -284,7 +290,6 @@
     </div>
   </div>
 </div>
-
 
 <!-- Bootstrap 5 CSS (jika belum ada) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
