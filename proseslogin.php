@@ -4,19 +4,14 @@ include 'koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST['nama']) && !empty($_POST['password']) && !empty($_POST['role'])) {
-        // Bersihkan dan normalisasi input
         $nama = strtolower(trim($_POST['nama']));
         $password = $_POST['password'];
         $role = strtolower(trim($_POST['role']));
 
-        // Buat objek dari class database
         $db = new database();
-
-        // Escape string untuk keamanan
         $nama = mysqli_real_escape_string($db->koneksi, $nama);
         $role = mysqli_real_escape_string($db->koneksi, $role);
 
-        // Query dengan pencocokan case-insensitive
         $sql = "SELECT * FROM users WHERE LOWER(nama)='$nama' AND LOWER(role)='$role'";
         $result = mysqli_query($db->koneksi, $sql);
 
@@ -27,8 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['nama'] = $user['nama'];
                 $_SESSION['role'] = $user['role'];
+                $_SESSION['foto'] = $user['foto'];
+                $_SESSION['email'] = $user['email']; // tambahkan ini
 
-                // Redirect berdasarkan role
+
                 switch (strtolower($user['role'])) {
                     case 'admin':
                         header("Location: dashboard.php");
@@ -40,19 +37,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         header("Location: dashboardsiswa.php");
                         break;
                     default:
-                        echo "Peran tidak dikenali.";
+                        header("Location: index.html?error=" . urlencode("Peran tidak dikenali."));
                 }
                 exit;
             } else {
-                echo "Password salah!";
+                header("Location: index.html?error=" . urlencode("Password salah!"));
+                exit;
             }
         } else {
-            echo "Akun tidak ditemukan atau peran salah.";
+            header("Location: index.html?error=" . urlencode("Akun tidak ditemukan atau peran salah."));
+            exit;
         }
     } else {
-        echo "Semua field harus diisi.";
+        header("Location: index.html?error=" . urlencode("Semua field harus diisi."));
+        exit;
     }
 } else {
-    echo "Akses ditolak.";
+    header("Location: index.html");
+    exit;
 }
-?>

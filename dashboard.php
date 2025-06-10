@@ -1,9 +1,18 @@
 <?php
+include "koneksi.php";
+$dp = new database();
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
   header("Location: index.html");
   exit;
+
+  if (move_uploaded_file($fotoTmp, $targetPath)) {
+    $fotoPath = $namaBaru;
+    mysqli_query($dp->koneksi, "UPDATE users SET foto = '$fotoPath' WHERE id = '$userId'");
+    $_SESSION['foto'] = $fotoPath; // tambahkan ini
 }
+}
+
 ?>
 <link rel="stylesheet" href="styledashboard.css">
 
@@ -114,48 +123,34 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
             
             <!--end::Fullscreen Toggle-->
             <!--begin::User Menu Dropdown-->
-            <li class="nav-item dropdown user-menu">
-              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <img
-                  src="dist/assets/img/user2-160x160.jpg"
-                  class="user-image rounded-circle shadow"
-                  alt="User Image"
-                />
-                <span class="d-none d-md-inline">Alexander Pierce</span>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                <!--begin::User Image-->
-                <li class="user-header text-bg-primary">
-                  <img
-                    src="dist/assets/img/user2-160x160.jpg"
-                    class="rounded-circle shadow"
-                    alt="User Image"
-                  />
-                  <p>
-                    Alexander Pierce - Web Developer
-                    <small>Member since Nov. 2023</small>
-                  </p>
-                </li>
-                <!--end::User Image-->
-                <!--begin::Menu Body-->
-                <li class="user-body">
-                  <!--begin::Row-->
-                  <div class="row">
-                    <div class="col-4 text-center"><a href="#">Followers</a></div>
-                    <div class="col-4 text-center"><a href="#">Sales</a></div>
-                    <div class="col-4 text-center"><a href="#">Friends</a></div>
-                  </div>
-                  <!--end::Row-->
-                </li>
-                <!--end::Menu Body-->
-                <!--begin::Menu Footer-->
-                <li class="user-footer">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                  <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
-                </li>
-                <!--end::Menu Footer-->
-              </ul>
-            </li>
+               <li class="nav-item dropdown user-menu">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+     <img src="uploads/<?php echo $_SESSION['foto']; ?>" alt="Foto Profil" style="width:35px; height:35px; border-radius:50%;">
+      <?php echo $_SESSION['nama']; ?>
+    </span>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+    <!--begin::User Image-->
+    <li class="user-header text-bg-primary">
+     <img src="uploads/<?php echo $_SESSION['foto']; ?>" alt="Foto Profil" style="width:50px; height:50px; border-radius:50%;">
+   
+      <p>
+        <?php echo $_SESSION['nama']; ?> - <?php echo $_SESSION['role']; ?>
+        <small><?php echo $_SESSION['email']; ?></small>
+      </p>
+    </li>
+    <!--end::User Image-->
+    
+    <li class="user-footer">
+      <a href="profile.php" class="btn btn-default btn-flat">Profil</a>
+  <!-- Tombol Logout dengan Modal -->
+      <a href="#" class="btn btn-default btn-flat float-end" data-bs-toggle="modal" data-bs-target="#logoutModal">
+        Keluar
+      </a>
+    </li>
+  </ul>
+</li>
+
             <!--end::User Menu Dropdown-->
           </ul>
           <!--end::End Navbar Links-->
@@ -198,9 +193,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
     </div>
 
     <!-- Tambahkan gambar user -->
-   <img src="user.png" alt="User Icon"
-     style="position: absolute; top: 0; right: 10px; height: 90%; opacity: 0.1;" />
-
+ <img src="user.png" alt="Major Icon"
+     style="position: absolute; top: 0; right: 10px; height: 98%; opacity: 0.1;" />
 
     <a
       href="datasiswa.php"
@@ -266,7 +260,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
                    <img src="book.png" alt="Book Icon"
                       style="position: absolute; top: 0; right: 10px; height: 85%; opacity: 0.09;" />
                   <a
-                    href="#"
+                    href="Tentang.php"
                     class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
                   >
                     Selengkapnya <i class="bi bi-link-45deg"></i>
@@ -505,6 +499,27 @@ function updatePanah(buka) {
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- Modal Konfirmasi Logout -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-header bg-light text-dark border-0 rounded-top-4">
+        <h5 class="modal-title d-flex align-items-center gap-2" id="logoutModalLabel">
+          <i class="bi bi-box-arrow-right fs-4 text-danger"></i> Konfirmasi Keluar
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body text-center py-4">
+        <i class="bi bi-question-circle-fill text-warning fs-1 mb-3"></i>
+        <p class="fs-5 mb-0">Apakah Anda yakin ingin keluar?</p>
+      </div>
+      <div class="modal-footer border-0 d-flex justify-content-center gap-3 pb-4">
+        <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Tidak</button>
+        <a href="logout.php" class="btn btn-danger px-4">Ya, Keluar</a>
+      </div>
+    </div>
+  </div>
+</div>
 
     <!--end::Script-->
   </body>

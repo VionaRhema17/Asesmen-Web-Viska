@@ -117,27 +117,45 @@
 
                 <ul class="nav nav-treeview" style="display: none;">
                   <li class="nav-item">
-                    <a href="OSIS.php" class="nav-link">
+                    <a href="TARI.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>OSIS</p>
+                      <p>SENI TARI</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>MPK</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
+                    <a href="PASKIBRA.php" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>PASKIBRA</p>
                     </a>
                   </li>
                   <li class="nav-item">
+                    <a href="PRAMUKA.php" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>PRAMUKA</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="./layout/sidebar-mini.html" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>PMR</p>
+                    </a>
+                  </li>
+                 <li class="nav-item">
                     <a href="./layout/fixed-sidebar.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>KOPRAMSEGA</p>
+                      <p>FUTSAL</p>
+                    </a>
+                  </li>
+                 <li class="nav-item">
+                    <a href="./layout/fixed-sidebar.html" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>BOLA VOLI</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="./layout/layout-rtl.html" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>KIR MADING</p>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -147,51 +165,21 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./layout/sidebar-mini.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>ROHKRIS</p>
-                    </a>
-                  </li>
-                 <li class="nav-item">
                     <a href="./layout/fixed-sidebar.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>ROHKAT</p>
                     </a>
                   </li>
-                 <li class="nav-item">
+                  <li class="nav-item">
                     <a href="./layout/fixed-sidebar.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>KIR</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/layout-rtl.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>NAVISKA</p>
+                      <p>ROHKRIS</p>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="./layout/fixed-sidebar.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>FUTSAL</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>VOLI</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>ANANDHITA BUDAYA</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>V-LINE DANCE</p>
+                      <p>ELVISKA</p>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -200,53 +188,23 @@
                       <p>KMVI</p>
                     </a>
                   </li>
-                </ul>
-              </li>
-               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-ui-checks-grid"></i>
-                  <p>
-                    Absensi
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="./docs/components/main-header.html" class="nav-link">
+                   <li class="nav-item">
+                    <a href="./layout/fixed-sidebar.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>X</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./docs/components/main-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>XI</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./docs/components/main-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>XII</p>
+                      <p>NAVISKA</p>
                     </a>
                   </li>
                 </ul>
-              </li>
-              <li class="nav-item">
-                <a href="jadwal.php" class="nav-link">
-                  <i class="nav-icon bi bi-filetype-js"></i>
-                  <p>
-                    Jadwal
-                  </p>
-                </a>
-              </li>
-               <li class="nav-item">
-                <a href="./docs/layout.html" class="nav-link">
-                  <i class="nav-icon bi bi-grip-horizontal"></i>
-                  <p>Pengumuman</p>
-                </a>
               </li>
               <li class="nav-header">Akun</li>
               <li class="nav-item">
+              
+               <li class="nav-item">
+                <a href="Profile.php" class="nav-link">
+                  <i class="nav-icon bi bi-patch-check-fill"></i>
+                  <p>Profil</p>
+                </a>
+              </li>
   <li class="nav-item">
 <!-- Tombol Logout -->
 <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#logoutModal">

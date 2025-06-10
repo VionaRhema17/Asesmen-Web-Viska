@@ -33,6 +33,7 @@ session_start();
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $kode_jurusan = $_POST['kode_jurusan'];
     $nama_jurusan = $_POST['nama_jurusan'];
 
     // Koneksi ke database
@@ -47,17 +48,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Koneksi gagal: " . $conn->connect_error);
     }
 
-    $sql = "INSERT INTO jurusan (nama_jurusan) 
-            VALUES ('$nama_jurusan')";
+    // Gunakan prepared statement untuk keamanan
+    $stmt = $conn->prepare("INSERT INTO jurusan (kode_jurusan, nama_jurusan) VALUES (?, ?)");
+    $stmt->bind_param("ss", $kode_jurusan, $nama_jurusan);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         $_SESSION['message'] = "Jurusan berhasil ditambahkan";
     } else {
-        $_SESSION['message'] = "Error: " . $sql . "<br>" . $conn->error;
+        $_SESSION['message'] = "Error: " . $stmt->error;
     }
 
+    $stmt->close();
     $conn->close();
-    header("Location: tambahjurusan.php");
+    header("Location: datajurusan.php");
     exit();
 }
 ?>
