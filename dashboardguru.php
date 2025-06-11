@@ -158,7 +158,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'guru') {
         <!--end::Container-->
       </nav>
       <!--end::Header-->
-      <?php include "sidebar.php"; ?>
+      <?php include "sidebarguru.php"; ?>
       <!--begin::App Main-->
       <main class="app-main">
         <!--begin::App Content Header-->
@@ -197,7 +197,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'guru') {
      style="position: absolute; top: 0; right: 10px; height: 98%; opacity: 0.1;" />
 
     <a
-      href="datasiswa.php"
+      href="datasiswa_disabled.php"
       class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
     >
      Selengkapnya <i class="bi bi-link-45deg"></i>
@@ -220,7 +220,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'guru') {
 
 
     <a
-                    href="datajurusan.php"
+                    href="datajurusan_disabled.php"
                     class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
                   >
                     Selengkapnya <i class="bi bi-link-45deg"></i>

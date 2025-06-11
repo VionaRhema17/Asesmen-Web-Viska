@@ -2,19 +2,18 @@
 include "koneksi.php";
 $dp = new database();
 session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-  header("Location: index.html");
-  exit;
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') 
 
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'guru') 
   if (move_uploaded_file($fotoTmp, $targetPath)) {
     $fotoPath = $namaBaru;
     mysqli_query($dp->koneksi, "UPDATE users SET foto = '$fotoPath' WHERE id = '$userId'");
     $_SESSION['foto'] = $fotoPath; // tambahkan ini
 }
-}
 
 ?>
 <link rel="stylesheet" href="styledashboard.css">
+
 <!doctype html>
 <html lang="en">
   <!--begin::Head-->
@@ -136,7 +135,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
         <!--end::Container-->
       </nav>
       <!--end::Header-->
-      <?php include "sidebar.php"; ?>
+    <?php
+  // Pilih sidebar sesuai role
+  if ($_SESSION['role'] == 'admin') {
+      include "sidebar.php";
+  } else if ($_SESSION['role'] == 'guru') {
+      include "sidebarguru.php";
+  }
+?>
       <!--begin::App Main-->
       <main class="app-main">
         <!--begin::App Content Header-->
@@ -146,10 +152,20 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
             <!--begin::Row-->
            <div class="row">
   <div class="col-12 text-center">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Tentang</li>
-    </ol>
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="<?php
+      if ($_SESSION['role'] == 'admin') {
+        echo 'dashboard.php';
+      } else if ($_SESSION['role'] == 'guru') {
+        echo 'dashboardguru.php';
+      } else {
+        echo 'dashboardsiswa.php';
+      }
+    ?>">Home</a>
+  </li>
+  <li class="breadcrumb-item active" aria-current="page">Tentang</li>
+</ol>
 
    <div class="container mt-4">
     <div class="card-body">
@@ -206,26 +222,19 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
     <script src="dist/js/adminlte.js"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
-    <script>
-      const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
-      const Default = {
-        scrollbarTheme: 'os-theme-light',
-        scrollbarAutoHide: 'leave',
-        scrollbarClickScroll: true,
-      };
-      document.addEventListener('DOMContentLoaded', function () {
-        const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
-        if (sidebarWrapper && typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== 'undefined') {
-          OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
-            scrollbars: {
-              theme: Default.scrollbarTheme,
-              autoHide: Default.scrollbarAutoHide,
-              clickScroll: Default.scrollbarClickScroll,
-            },
-          });
-        }
-      });
-    </script>
+
+<script>
+  document.querySelectorAll('.nav-item > a.nav-link').forEach(link => {
+    link.addEventListener('click', function (e) {
+      const nextElement = this.nextElementSibling;
+      if (nextElement && nextElement.classList.contains('nav-treeview')) {
+        e.preventDefault(); // Mencegah redirect saat toggle
+        nextElement.style.display = nextElement.style.display === 'block' ? 'none' : 'block';
+      }
+    });
+  });
+</script>
+
     <!--end::OverlayScrollbars Configure-->
     <!--end::Script-->
   </body>

@@ -1,223 +1,160 @@
+<?php
+$currentPage = basename($_SERVER['PHP_SELF']);
+$dataPages = ['datasiswa.php', 'datajurusan.php', 'dataagama.php'];
+$dataMenuOpen = in_array($currentPage, $dataPages) ? 'menu-open' : '';
+$dataLinkActive = in_array($currentPage, $dataPages) ? 'active' : '';
+
+$formPages = ['tambahsiswa.php', 'tambahjurusan.php', 'tambahagama.php'];
+$formMenuOpen = in_array($currentPage, $formPages) ? 'menu-open' : '';
+$formLinkActive = in_array($currentPage, $formPages) ? 'active' : '';
+
+$ekstraPages = ['TARI.php', 'PASKIBRA.php', 'PRAMUKA.php', 'layout/sidebar-mini.html', 'layout/fixed-sidebar.html', 'layout/layout-rtl.html'];
+$ekstraMenuOpen = in_array($currentPage, $ekstraPages) ? 'menu-open' : '';
+$ekstraLinkActive = in_array($currentPage, $ekstraPages) ? 'active' : '';
+?>
 
 <!--begin::Sidebar-->
+<!--begin::Sidebar-->
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
-        <!--begin::Sidebar Brand-->
-        <div class="sidebar-brand">
-          <!--begin::Brand Link-->
-          <a href="./index.php" class="brand-link">
-            <!--begin::Brand Image-->
-            <img
-              src="dist/assets/img/logosekolah.png"
-              alt="AdminLTE Logo"
-              class="brand-image"
-            />
-            <!--end::Brand Image-->
-            <!--begin::Brand Text-->
-            <span class="brand-text fw-light">SMKN 6 SURAKARTA</span>
-            <!--end::Brand Text-->
+  <div class="sidebar-brand">
+    <a href="./index.php" class="brand-link">
+      <img src="dist/assets/img/logosekolah.png" alt="AdminLTE Logo" class="brand-image" />
+      <span class="brand-text fw-light">SMKN 6 SURAKARTA</span>
+    </a>
+  </div>
+
+  <div class="sidebar-wrapper">
+    <nav class="mt-2">
+      <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a href="dashboard.php" class="nav-link <?= $currentPage == 'dashboard.php' ? 'active' : '' ?>">
+            <i class="nav-icon bi bi-speedometer"></i>
+            <p>Dashboard</p>
           </a>
-          <!--end::Brand Link-->
-        </div>
-        <!--end::Sidebar Brand-->
-        <!--begin::Sidebar Wrapper-->
-        <div class="sidebar-wrapper">
-          <nav class="mt-2">
-            <!--begin::Sidebar Menu-->
-            <ul
-              class="nav sidebar-menu flex-column"
-              data-lte-toggle="treeview"
-              role="menu"
-              data-accordion="false"
-            >
-              <li class="nav-item menu-open">
-                <a href="dashboard.php" class="nav-link active">
-                  <i class="nav-icon bi bi-speedometer"></i>
-                  <p>
-                    Dashboard
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="Tentang.php" class="nav-link">
-                  <i class="nav-icon bi bi-patch-check-fill"></i>
-                  <p>Tentang</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-table"></i>
-                  <p>
-                    Data
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="datasiswa.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Data Siswa</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="datajurusan.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Data Jurusan</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="dataagama.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Data Agama</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-pencil-square"></i>
-                  <p>
-                    Forms
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="tambahsiswa.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Form Siswa</p>
-                    </a>
-                  </li>
-                </ul>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="tambahjurusan.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Form Jurusan</p>
-                    </a>
-                  </li>
-                </ul>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="tambahagama.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Form Agama</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-              <a href="#" class="nav-link" id="menu-ekstrakurikuler">
-                <i class="nav-icon bi bi-clipboard-fill"></i>
-                <p>
-                  Ekstrakurikuler
-                  <span class="nav-badge badge text-bg-secondary me-3">14</span>
-                 <i id="ikon-panah-ekstrakurikuler" class="nav-arrow bi bi-chevron-right"></i>
-                </p>
+        </li>
+
+        <li class="nav-item">
+          <a href="Tentang.php" class="nav-link <?= $currentPage == 'Tentang.php' ? 'active' : '' ?>">
+            <i class="nav-icon bi bi-patch-check-fill"></i>
+            <p>Tentang</p>
+          </a>
+        </li>
+
+        <!-- Menu Data -->
+        <li class="nav-item <?= $dataMenuOpen ?>">
+          <a href="#" class="nav-link <?= $dataLinkActive ?>">
+            <i class="nav-icon bi bi-table"></i>
+            <p>Data<i class="nav-arrow bi bi-chevron-right"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="datasiswa.php" class="nav-link <?= $currentPage == 'datasiswa.php' ? 'active' : '' ?>">
+                <i class="nav-icon bi bi-circle"></i>
+                <p>Data Siswa</p>
               </a>
+            </li>
+            <li class="nav-item">
+              <a href="datajurusan.php" class="nav-link <?= $currentPage == 'datajurusan.php' ? 'active' : '' ?>">
+                <i class="nav-icon bi bi-circle"></i>
+                <p>Data Jurusan</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="dataagama.php" class="nav-link <?= $currentPage == 'dataagama.php' ? 'active' : '' ?>">
+                <i class="nav-icon bi bi-circle"></i>
+                <p>Data Agama</p>
+              </a>
+            </li>
+          </ul>
+        </li>
 
-                <ul class="nav nav-treeview" style="display: none;">
-                  <li class="nav-item">
-                    <a href="TARI.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>SENI TARI</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="PASKIBRA.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>PASKIBRA</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="PRAMUKA.php" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>PRAMUKA</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/sidebar-mini.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>PMR</p>
-                    </a>
-                  </li>
-                 <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>FUTSAL</p>
-                    </a>
-                  </li>
-                 <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>BOLA VOLI</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/layout-rtl.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>KIR MADING</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>ROHIS</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>ROHKAT</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>ROHKRIS</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>ELVISKA</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>KMVI</p>
-                    </a>
-                  </li>
-                   <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>NAVISKA</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-header">Akun</li>
-              <li class="nav-item">
-              
-               <li class="nav-item">
-                <a href="Profile.php" class="nav-link">
-                  <i class="nav-icon bi bi-patch-check-fill"></i>
-                  <p>Profil</p>
-                </a>
-              </li>
-  <li class="nav-item">
-<!-- Tombol Logout -->
-<a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#logoutModal">
-  <i class="nav-icon bi bi-box-arrow-in-right"></i>
-  Keluar
-</a>
+        <!-- Menu Forms -->
+        <li class="nav-item <?= $formMenuOpen ?>">
+          <a href="#" class="nav-link <?= $formLinkActive ?>">
+            <i class="nav-icon bi bi-pencil-square"></i>
+            <p>Forms<i class="nav-arrow bi bi-chevron-right"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="tambahsiswa.php" class="nav-link <?= $currentPage == 'tambahsiswa.php' ? 'active' : '' ?>">
+                <i class="nav-icon bi bi-circle"></i>
+                <p>Form Siswa</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="tambahjurusan.php" class="nav-link <?= $currentPage == 'tambahjurusan.php' ? 'active' : '' ?>">
+                <i class="nav-icon bi bi-circle"></i>
+                <p>Form Jurusan</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="tambahagama.php" class="nav-link <?= $currentPage == 'tambahagama.php' ? 'active' : '' ?>">
+                <i class="nav-icon bi bi-circle"></i>
+                <p>Form Agama</p>
+              </a>
+            </li>
+          </ul>
+        </li>
 
-</li>
-            <!--end::Sidebar Menu-->
-          </nav>
-        </div>
-        <!--end::Sidebar Wrapper-->
-      </aside>
+        <!-- Menu Ekstrakurikuler -->
+        <li class="nav-item <?= $ekstraMenuOpen ?>">
+          <a href="#" class="nav-link <?= $ekstraLinkActive ?>">
+            <i class="nav-icon bi bi-clipboard-fill"></i>
+            <p>
+              Ekstrakurikuler
+              <span class="nav-badge badge text-bg-secondary me-3">14</span>
+              <i class="nav-arrow bi bi-chevron-right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <?php
+            $ekstraList = [
+              'TARI.php' => 'SENI TARI',
+              'PASKIBRA.php' => 'PASKIBRA',
+              'PRAMUKA.php' => 'PRAMUKA',
+              'layout/sidebar-mini.html' => 'PMR',
+              'layout/fixed-sidebar.html' => 'FUTSAL',
+              'layout/fixed-sidebar.html' => 'BOLA VOLI',
+              'layout/layout-rtl.html' => 'KIR MADING',
+              'layout/fixed-sidebar.html' => 'ROHIS',
+              'layout/fixed-sidebar.html' => 'ROHKAT',
+              'layout/fixed-sidebar.html' => 'ROHKRIS',
+              'layout/fixed-sidebar.html' => 'ELVISKA',
+              'layout/fixed-sidebar.html' => 'KMVI',
+              'layout/fixed-sidebar.html' => 'NAVISKA'
+            ];
+            foreach ($ekstraList as $file => $name) {
+              $isActive = $currentPage == $file ? 'active' : '';
+              echo "<li class='nav-item'>
+                      <a href='$file' class='nav-link $isActive'>
+                        <i class='nav-icon bi bi-circle'></i>
+                        <p>$name</p>
+                      </a>
+                    </li>";
+            }
+            ?>
+          </ul>
+        </li>
+
+        <!-- Akun -->
+        <li class="nav-header">Akun</li>
+        <li class="nav-item">
+          <a href="Profile.php" class="nav-link <?= $currentPage == 'Profile.php' ? 'active' : '' ?>">
+            <i class="nav-icon bi bi-patch-check-fill"></i>
+            <p>Profil</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#logoutModal">
+            <i class="nav-icon bi bi-box-arrow-in-right"></i>
+            Keluar
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</aside>
+
       <!--end::Sidebar-->
 
       <script>

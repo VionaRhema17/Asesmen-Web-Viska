@@ -194,7 +194,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
             <td><?php echo $x['kode_jurusan']; ?></td>
             <td><?php echo $x['nama_jurusan']; ?></td>
             <td>
-              <a href="edit_jurusan.php?nisn=<?php echo htmlspecialchars($x['kode_jurusan']); ?>" class="btn-edit">Edit</a>
+              <a href="edit_jurusan.php?kode_jurusan=<?php echo htmlspecialchars($x['kode_jurusan']); ?>" class="btn-edit">Edit</a>
               <a href="hapus_jurusan.php?kode_jurusan=<?php echo htmlspecialchars($x['kode_jurusan']); ?>" class="btn-delete">Hapus</a>
             </td>
         </tr>

@@ -1,18 +1,18 @@
 <?php
 include "koneksi.php";
 $dp = new database();
+session_start();
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'siswa') 
 
-
-session_start(); // WAJIB sebelum pakai $_SESSION 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: index.html");
-    exit;
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'guru') 
+  if (move_uploaded_file($fotoTmp, $targetPath)) {
+    $fotoPath = $namaBaru;
+    mysqli_query($dp->koneksi, "UPDATE users SET foto = '$fotoPath' WHERE id = '$userId'");
+    $_SESSION['foto'] = $fotoPath; // tambahkan ini
 }
 
-$userId = $_SESSION['user_id'];
-$query = mysqli_query($dp->koneksi, "SELECT * FROM users WHERE id = '$userId'");
-$user = mysqli_fetch_assoc($query);
 ?>
+<link rel="stylesheet" href="styledashboard.css">
 
 <!doctype html>
 <html lang="en">
@@ -50,7 +50,7 @@ $user = mysqli_fetch_assoc($query);
     />
     <!--end::Third Party Plugin(OverlayScrollbars)-->
     <!-- Custom CSS -->
-<link rel="stylesheet" href="datasiswa.css">
+<link rel="stylesheet" href="dataagama.css?">
     <!--begin::Third Party Plugin(Bootstrap Icons)-->
     <link
       rel="stylesheet"
@@ -69,7 +69,7 @@ $user = mysqli_fetch_assoc($query);
     <!--begin::App Wrapper-->
     <div class="app-wrapper">
       <!--begin::Header-->
-      <nav class="app-header navbar navbar-expand bg-body">
+       <nav class="app-header navbar navbar-expand bg-body">
         <!--begin::Container-->
         <div class="container-fluid">
           <!--begin::Start Navbar Links-->
@@ -106,8 +106,7 @@ $user = mysqli_fetch_assoc($query);
             
             <!--end::Fullscreen Toggle-->
             <!--begin::User Menu Dropdown-->
-                        <!--begin::User Menu Dropdown-->
-                   <li class="nav-item dropdown user-menu">
+             <li class="nav-item dropdown user-menu">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
      <img src="uploads/<?php echo $_SESSION['foto']; ?>" alt="Foto Profil" style="width:35px; height:35px; border-radius:50%;">
       <?php echo $_SESSION['nama']; ?>
@@ -134,8 +133,6 @@ $user = mysqli_fetch_assoc($query);
     </li>
   </ul>
 </li>
-  </ul>
-</li>
             <!--end::User Menu Dropdown-->
           </ul>
           <!--end::End Navbar Links-->
@@ -143,14 +140,7 @@ $user = mysqli_fetch_assoc($query);
         <!--end::Container-->
       </nav>
       <!--end::Header-->
-     <?php
-  // Pilih sidebar sesuai role
-  if ($_SESSION['role'] == 'admin') {
-      include "sidebar.php";
-  } else if ($_SESSION['role'] == 'guru') {
-      include "sidebarguru.php";
-  }
-?>
+      <?php include "sidebar.php"; ?>
       <!--begin::App Main-->
       <main class="app-main">
         <!--begin::App Content Header-->
@@ -158,14 +148,12 @@ $user = mysqli_fetch_assoc($query);
           <!--begin::Container-->
           <div class="container-fluid">
             <!--begin::Row-->
-           <div class="row">
-      <!--begin::Row-->
-           <div class="row">
+          <div class="row">
   <div class="col-12 text-center">
-  <ol class="breadcrumb">
+    <ol class="breadcrumb">
   <li class="breadcrumb-item">
     <a href="<?php
-      if ($_SESSION['role'] == 'admin') {
+      if ($_SESSION['role'] == 'siswa') {
         echo 'dashboard.php';
       } else if ($_SESSION['role'] == 'guru') {
         echo 'dashboardguru.php';
@@ -173,58 +161,79 @@ $user = mysqli_fetch_assoc($query);
         echo 'dashboardsiswa.php';
       }
     ?>">Home</a>
-  </li>
-      <li class="breadcrumb-item active" aria-current="page">Profile</li>
+      <li class="breadcrumb-item active" aria-current="page">Data Agama</li>
     </ol>
   </div>
 </div>
-
-<div class="container py-5">
-  <div class="card shadow rounded-4">
-    <div class="card-header bg-primary text-white rounded-top-4">
-      <h4 class="mb-0">Edit Profil</h4>
-    </div>
-    <div class="card-body">
-      <form action="update_profile.php" method="post" enctype="multipart/form-data">
-        <div class="mb-3 text-center">
-        <img src="uploads/<?php echo $_SESSION['foto']; ?>" alt="Foto Profil" style="width:90px; height:90px; border-radius:50%;">
+            <!--end::Row-->
+          </div>
+          <!--end::Container-->
         </div>
-        <div class="mb-3">
-          <label class="form-label">Ganti Foto Profil</label>
-          <input type="file" name="foto" class="form-control">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Nama Lengkap</label>
-          <input type="text" class="form-control" value="<?= htmlspecialchars($user['nama']) ?>" disabled>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Email</label>
-          <input type="text" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" disabled>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Peran</label>
-          <input type="text" class="form-control" value="<?= htmlspecialchars($user['role']) ?>" disabled>
-        </div>
-       <div class="mb-3">
-          <label class="form-label">Password Baru</label>
-          <input type="password" name="password" class="form-control"
-                placeholder="Biarkan kosong jika tidak ingin mengubah"
-                id="password"
-                onfocus="this.placeholder=''"
-                onblur="this.placeholder='Biarkan kosong jika tidak ingin mengubah'">
-        </div>
-     <button type="submit" class="btn btn-success">Perbarui</button>
-<a href="<?php
-    if ($_SESSION['role'] == 'admin') {
-        echo 'dashboard.php';
-    } else if ($_SESSION['role'] == 'guru') {
-        echo 'dashboardguru.php';
-    }
-?>" class="btn btn-secondary float-end">Kembali</a>
-      </form>
-    </div>
-  </div>
+        <!--end::App Content Header-->
+        <!--begin::App Content-->
+        <div class="app-content">
+          <!--begin::Container-->
+          <div class="container-fluid">
+            <!--begin::Row-->
+            <div class="row">
+              <div class="col-md-12">
+                <!-- /.card -->
+                <div class="card mb-4">
+                <div class="card-header">
+  <h3 class="card-title text-center" style="font-size: 1.5rem;">TABEL DATA AGAMA</h3>
 </div>
+                  <!-- /.card-header -->
+                  <table class="table table-bordered">
+                      <thead>
+                          <tr>
+                              <th>ID Agama</th>
+                              <th>Agama</th>
+                          </tr>
+                      </thead>
+            <tbody>
+    <?php
+  $no = 1;
+  foreach($dp->tampil_data_agama() as $x){
+        ?>
+        <tr>
+            <td><?php echo $x['idagama']; ?></td>
+            <td><?php echo $x['nama_agama']; ?></td>
+           
+        </tr>
+      
+      <?php
+  }  
+  ?>
+  </tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->  
+              </div>
+              <div class="d-flex justify-content-center mt-1">
+                  <a href="tambahagama.php" class="btn btn-primary">Tambah Agama</a>
+              </div>
+            
+                <!-- /.card -->
+              </div>
+              
+              <!-- /.col -->
+            </div>
+            
+            <!--end::Row-->
+          </div>
+          
+          <!--end::Container-->
+        </div>
+        
+        <!--end::App Content-->
+         <!-- Tombol Tambah Siswa -->
+
+      </main>
+      <!--end::App Main-->
+      <!--begin::Footer-->
+    
+      <!--end::Footer-->
+    </div>
     <!--end::App Wrapper-->
     <!--begin::Script-->
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
@@ -248,7 +257,9 @@ $user = mysqli_fetch_assoc($query);
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
     <script src="dist/js/adminlte.js"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
-    <script>
+     <script src="dist/js/adminlte.js"></script>
+    <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+      <script>
       const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
       const Default = {
         scrollbarTheme: 'os-theme-light',

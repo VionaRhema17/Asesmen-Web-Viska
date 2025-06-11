@@ -1,22 +1,18 @@
 <?php
 include "koneksi.php";
 $dp = new database();
-
 session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-  header("Location: index.html");
-  exit;
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'siswa') 
 
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'guru') 
   if (move_uploaded_file($fotoTmp, $targetPath)) {
     $fotoPath = $namaBaru;
     mysqli_query($dp->koneksi, "UPDATE users SET foto = '$fotoPath' WHERE id = '$userId'");
     $_SESSION['foto'] = $fotoPath; // tambahkan ini
 }
-}
 
 ?>
 <link rel="stylesheet" href="styledashboard.css">
-
 <!doctype html>
 <html lang="en">
   <!--begin::Head-->
@@ -138,7 +134,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
         <!--end::Container-->
       </nav>
       <!--end::Header-->
-      <?php include "sidebar.php"; ?>
+      <?php include "sidebarguru.php"; ?>
       <!--begin::App Main-->
       <main class="app-main">
         <!--begin::App Content Header-->
@@ -149,7 +145,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
            <div class="row">
   <div class="col-12 text-center">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+      <li class="breadcrumb-item"><a href="dashboardguru.php">Home</a></li>
       <li class="breadcrumb-item active" aria-current="page">Data Siswa</li>
     </ol>
   </div>
@@ -185,7 +181,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
                               <th>Alamat</th>
                               <th>Agama</th>
                               <th>No HP</th>
-                              <th>Option</th>
                           </tr>
                       </thead>
             <tbody>
@@ -209,10 +204,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
           <td><?php echo htmlspecialchars($x['alamat']); ?></td>
           <td><?php echo htmlspecialchars($x['nama_agama']); ?></td> <!-- Nama agama -->
           <td><?php echo htmlspecialchars($x['nohp']); ?></td>
-          <td>
-              <a href="edit_siswa.php?nisn=<?php echo htmlspecialchars($x['nisn']); ?>" class="btn-edit">Edit</a>
-              <a href="hapus_siswa.php?nisn=<?php echo htmlspecialchars($x['nisn']); ?>" class="btn-delete">Hapus</a>
-          </td>
           
       </tr>
       

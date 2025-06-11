@@ -109,28 +109,33 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
             
             <!--end::Fullscreen Toggle-->
             <!--begin::User Menu Dropdown-->
-             <li class="nav-item dropdown user-menu">
-              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <img src="uploads/<?php echo htmlspecialchars($_SESSION['foto']); ?>" alt="Foto Profil" style="width:35px; height:35px; border-radius:50%;">
-                <?php echo htmlspecialchars($_SESSION['nama']); ?>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                <li class="user-header text-bg-primary text-center">
-                  <img src="uploads/<?php echo htmlspecialchars($_SESSION['foto']); ?>" alt="Foto Profil" style="width:50px; height:50px; border-radius:50%;">
-                  <p>
-                    <?php echo htmlspecialchars($_SESSION['nama']); ?> - <?php echo htmlspecialchars($_SESSION['role']); ?><br>
-                    <small><?php echo htmlspecialchars($_SESSION['email']); ?></small>
-                  </p>
-                </li>
-                <li class="user-footer d-flex justify-content-between">
-                  <a href="profile.php" class="btn btn-default btn-flat">Profil</a>
-                  <!-- Tombol Logout dengan Modal -->
-                  <a href="#" class="btn btn-default btn-flat" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                    Keluar
-                  </a>
-                </li>
-              </ul>
-            </li>
+         <li class="nav-item dropdown user-menu">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+     <img src="uploads/<?php echo $_SESSION['foto']; ?>" alt="Foto Profil" style="width:35px; height:35px; border-radius:50%;">
+      <?php echo $_SESSION['nama']; ?>
+    </span>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+    <!--begin::User Image-->
+    <li class="user-header text-bg-primary">
+     <img src="uploads/<?php echo $_SESSION['foto']; ?>" alt="Foto Profil" style="width:50px; height:50px; border-radius:50%;">
+   
+      <p>
+        <?php echo $_SESSION['nama']; ?> - <?php echo $_SESSION['role']; ?>
+        <small><?php echo $_SESSION['email']; ?></small>
+      </p>
+    </li>
+    <!--end::User Image-->
+    
+    <li class="user-footer">
+      <a href="profile.php" class="btn btn-default btn-flat">Profil</a>
+  <!-- Tombol Logout dengan Modal -->
+      <a href="logout.php" class="btn btn-default btn-flat float-end" data-bs-toggle="modal" data-bs-target="#logoutModal">
+        Keluar
+      </a>
+    </li>
+  </ul>
+</li>
             <!--end::User Menu Dropdown-->
           </ul>
           <!--end::End Navbar Links-->

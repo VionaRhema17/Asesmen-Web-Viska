@@ -3,15 +3,13 @@ include "koneksi.php";
 $dp = new database();
 
 session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-  header("Location: index.html");
-  exit;
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') 
 
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'guru') 
   if (move_uploaded_file($fotoTmp, $targetPath)) {
     $fotoPath = $namaBaru;
     mysqli_query($dp->koneksi, "UPDATE users SET foto = '$fotoPath' WHERE id = '$userId'");
     $_SESSION['foto'] = $fotoPath; // tambahkan ini
-}
 }
 
 ?>
@@ -143,7 +141,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
         <!--end::Container-->
       </nav>
       <!--end::Header-->
-      <?php include "sidebar.php"; ?>
+      <?php
+  // Pilih sidebar sesuai role
+  if ($_SESSION['role'] == 'admin') {
+      include "sidebar.php";
+  } else if ($_SESSION['role'] == 'guru') {
+      include "sidebarguru.php";
+  }
+?>
       <!--begin::App Main-->
       <main class="app-main">
         <!--begin::App Content Header-->
@@ -154,7 +159,16 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
            <div class="row">
   <div class="col-12 text-center">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+  <li class="breadcrumb-item">
+    <a href="<?php
+      if ($_SESSION['role'] == 'admin') {
+        echo 'dashboard.php';
+      } else if ($_SESSION['role'] == 'guru') {
+        echo 'dashboardguru.php';
+      } else {
+        echo 'dashboardsiswa.php';
+      }
+    ?>">Home</a>
       <li class="breadcrumb-item active" aria-current="page">Ekstrakurikuler</li>
        <li class="breadcrumb-item active" aria-current="page">Seni Tari</li>
     </ol>
