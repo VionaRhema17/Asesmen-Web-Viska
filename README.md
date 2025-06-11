@@ -41,4 +41,15 @@
 ### Logout
 ![image](https://github.com/user-attachments/assets/b0529aed-15c3-404f-9082-28c9afc3a0bb)
 
+## 🖼️ RANCANGAN DATABASE
+### Users / Pengguna
+![Screenshot 2025-06-11 114054](https://github.com/user-attachments/assets/69aeec30-01fa-4d0d-b33a-d3677df7a2c0)
 
+### Data Agama
+![image](https://github.com/user-attachments/assets/8be76397-8a43-447e-b6e2-f21680dc8322)
+
+### Data Jurusan
+![image](https://github.com/user-attachments/assets/3063df80-149f-4f83-9a24-ba691237a88f)
+
+### Data Siswa
+![image](https://github.com/user-attachments/assets/c677aa21-079e-4287-a4ed-2f8f67c9f5c6)
