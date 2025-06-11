@@ -21,5 +21,24 @@
 ![image](https://github.com/user-attachments/assets/e7d47491-9abc-4ddc-9ba3-81577e500eb7)
 
 ### Data Agama
-![image](https://github.com/user-attachments/assets/48aaa9e9-44fe-47f8-a902-893307897a49)
+![image](https://github.com/user-attachments/assets/88f4c558-73ed-4752-af02-57c93e729615)
+
+### Form Tambah Siswa
+![image](https://github.com/user-attachments/assets/936a5a00-d484-40d2-9166-cbdd1f2a996a)
+
+### Form Tambah Jurusan
+![image](https://github.com/user-attachments/assets/dd79e3ec-769c-46af-8f1f-8d742fa16f4b)
+
+### Form Tambah Agama
+![image](https://github.com/user-attachments/assets/5a7abcbd-2f99-4408-94af-f75ebd9ebbde)
+
+### Halaman Ekskul 
+![image](https://github.com/user-attachments/assets/6ef2c07d-b909-4712-8103-764bfc8fdd4a)
+
+### Halaman Profile
+![image](https://github.com/user-attachments/assets/d62de878-3e55-457a-b08d-f5525773e8a8)
+
+### Logout
+![image](https://github.com/user-attachments/assets/b0529aed-15c3-404f-9082-28c9afc3a0bb)
+
 
