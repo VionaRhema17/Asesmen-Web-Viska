@@ -62,6 +62,8 @@ $user = mysqli_fetch_assoc($query);
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="dist/css/adminlte.css" />
     <!--end::Required Plugin(AdminLTE)-->
+
+
   </head>
   <!--end::Head-->
   <!--begin::Body-->
@@ -145,12 +147,15 @@ $user = mysqli_fetch_assoc($query);
       <!--end::Header-->
      <?php
   // Pilih sidebar sesuai role
-  if ($_SESSION['role'] == 'admin') {
-      include "sidebar.php";
-  } else if ($_SESSION['role'] == 'guru') {
-      include "sidebarguru.php";
-  }
-?>
+   // Pilih sidebar sesuai role
+      if ($_SESSION['role'] == 'admin') {
+          include "sidebar.php";
+      } else if ($_SESSION['role'] == 'guru') {
+          include "sidebarguru.php";
+      } else if ($_SESSION['role'] == 'siswa') {
+          include "sidebarguru.php";
+      }
+      ?>
       <!--begin::App Main-->
       <main class="app-main">
         <!--begin::App Content Header-->
@@ -179,52 +184,65 @@ $user = mysqli_fetch_assoc($query);
   </div>
 </div>
 
-<div class="container py-5">
-  <div class="card shadow rounded-4">
-    <div class="card-header bg-primary text-white rounded-top-4">
-      <h4 class="mb-0">Edit Profil</h4>
+<div class="container py-5 d-flex justify-content-center">
+  <div class="card shadow-lg rounded-4" style="width: 100%; max-width: 600px;">
+    <div class="card-header bg-primary text-white rounded-top-4 text-center py-4">
+      <h4 class="mb-0"><i class="bi bi-person-circle me-2"></i>Edit Profil</h4>
     </div>
-    <div class="card-body">
+    <div class="card-body px-4 py-5">
       <form action="update_profile.php" method="post" enctype="multipart/form-data">
-        <div class="mb-3 text-center">
-        <img src="uploads/<?php echo $_SESSION['foto']; ?>" alt="Foto Profil" style="width:90px; height:90px; border-radius:50%;">
+        <div class="mb-4 text-center">
+          <img src="uploads/<?php echo $_SESSION['foto']; ?>" alt="Foto Profil" class="img-thumbnail rounded-circle shadow" style="width: 120px; height: 120px;">
         </div>
+
         <div class="mb-3">
-          <label class="form-label">Ganti Foto Profil</label>
+          <label class="form-label fw-semibold">Ganti Foto Profil</label>
           <input type="file" name="foto" class="form-control">
         </div>
+
         <div class="mb-3">
-          <label class="form-label">Nama Lengkap</label>
-          <input type="text" class="form-control" value="<?= htmlspecialchars($user['nama']) ?>" disabled>
+          <label class="form-label fw-semibold">Nama Lengkap</label>
+          <input type="text" class="form-control bg-light" value="<?= htmlspecialchars($user['nama']) ?>" disabled>
         </div>
+
         <div class="mb-3">
-          <label class="form-label">Email</label>
-          <input type="text" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" disabled>
+          <label class="form-label fw-semibold">Email</label>
+          <input type="text" class="form-control bg-light" value="<?= htmlspecialchars($user['email']) ?>" disabled>
         </div>
+
         <div class="mb-3">
-          <label class="form-label">Peran</label>
-          <input type="text" class="form-control" value="<?= htmlspecialchars($user['role']) ?>" disabled>
+          <label class="form-label fw-semibold">Peran</label>
+          <input type="text" class="form-control bg-light" value="<?= htmlspecialchars($user['role']) ?>" disabled>
         </div>
-       <div class="mb-3">
-          <label class="form-label">Password Baru</label>
-          <input type="password" name="password" class="form-control"
-                placeholder="Biarkan kosong jika tidak ingin mengubah"
+
+        <div class="mb-4">
+          <label class="form-label fw-semibold">Password Baru</label>
+          <input type="password" name="password" class="form-control" placeholder="Biarkan kosong jika tidak ingin mengubah"
                 id="password"
                 onfocus="this.placeholder=''"
                 onblur="this.placeholder='Biarkan kosong jika tidak ingin mengubah'">
         </div>
-     <button type="submit" class="btn btn-success">Perbarui</button>
-<a href="<?php
-    if ($_SESSION['role'] == 'admin') {
-        echo 'dashboard.php';
-    } else if ($_SESSION['role'] == 'guru') {
-        echo 'dashboardguru.php';
-    }
-?>" class="btn btn-secondary float-end">Kembali</a>
+
+        <div class="d-flex justify-content-between">
+          <a href="<?php
+            if ($_SESSION['role'] == 'admin') {
+              echo 'dashboard.php';
+            } else if ($_SESSION['role'] == 'guru') {
+              echo 'dashboardguru.php';
+            }
+          ?>" class="btn btn-secondary">
+            <i class="bi bi-arrow-left-circle me-1"></i> Kembali
+          </a>
+          <button type="submit" class="btn btn-success">
+            <i class="bi bi-check-circle me-1"></i> Perbarui
+          </button>
+        </div>
       </form>
     </div>
   </div>
 </div>
+
+    
     <!--end::App Wrapper-->
     <!--begin::Script-->
     <!--begin::Third Party Plugin(OverlayScrollbars)-->

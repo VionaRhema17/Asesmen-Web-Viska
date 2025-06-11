@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 include "koneksi.php";
@@ -9,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $userId = $_SESSION['user_id'];
-$dp = new database();
+$role = $_SESSION['role']; // Tambahkan baris ini
 
 $updateFields = [];
 
@@ -36,5 +37,12 @@ if (!empty($updateFields)) {
     mysqli_query($dp->koneksi, $query);
 }
 
-header("Location: dashboard.php");
+// Redirect ke dashboard sesuai role
+if ($role == 'admin') {
+    header("Location: dashboard.php");
+} else if ($role == 'guru') {
+    header("Location: dashboardguru.php");
+} else if ($role == 'siswa') {
+    header("Location: dashboardsiswa.php");
+}
 exit;

@@ -173,65 +173,65 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
             <div class="row">
               <div class="col-md-12">
                 <!-- /.card -->
-                <div class="card mb-4">
-                <div class="card-header">
-  <h3 class="card-title text-center" style="font-size: 1.5rem;">TABEL DATA SISWA</h3>
-</div>
-                  <!-- /.card-header -->
-                  <table class="table table-bordered">
-                      <thead>
-                          <tr>
-                              <th>No</th>
-                              <th>NISN</th>
-                              <th>Nama</th>
-                              <th>Jenis Kelamin</th>
-                              <th>Jurusan</th>
-                              <th>Kelas</th>
-                              <th>Alamat</th>
-                              <th>Agama</th>
-                              <th>No HP</th>
-                              <th>Option</th>
-                          </tr>
-                      </thead>
-            <tbody>
-    <?php
-  $no = 1;
-  foreach ($dp->tampil_data_siswa() as $x) {
-      ?>
-      <tr class="align-middle">
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle text-center">
+    <thead class="table-primary">
+      <tr>
+        <th>No</th>
+        <th>NISN</th>
+        <th>Nama</th>
+        <th>Jenis Kelamin</th>
+        <th>Jurusan</th>
+        <th>Kelas</th>
+        <th>Alamat</th>
+        <th>Agama</th>
+        <th>No HP</th>
+        <th>Opsi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+      $no = 1;
+      foreach ($dp->tampil_data_siswa() as $x) {
+        ?>
+        <tr>
           <td><?php echo $no++; ?></td>
           <td><?php echo htmlspecialchars($x['nisn']); ?></td>
           <td><?php echo htmlspecialchars($x['nama']); ?></td>
           <td>
-              <?php 
-              // Validasi jenis kelamin
-              $jenis_kelamin = $x['jenis_kelamin'] == 'L' ? 'Laki-laki' : ($x['jenis_kelamin'] == 'P' ? 'Perempuan' : 'Tidak Diketahui');
-            echo htmlspecialchars($jenis_kelamin);
+            <?php
+              $jk = $x['jenis_kelamin'] == 'L' ? 'Laki-laki' : ($x['jenis_kelamin'] == 'P' ? 'Perempuan' : 'Tidak Diketahui');
+              echo htmlspecialchars($jk);
             ?>
           </td>
-          <td><?php echo htmlspecialchars($x['nama_jurusan']); ?></td> <!-- Nama jurusan -->
+          <td><?php echo htmlspecialchars($x['nama_jurusan']); ?></td>
           <td><?php echo htmlspecialchars($x['kelas']); ?></td>
           <td><?php echo htmlspecialchars($x['alamat']); ?></td>
-          <td><?php echo htmlspecialchars($x['nama_agama']); ?></td> <!-- Nama agama -->
+          <td><?php echo htmlspecialchars($x['nama_agama']); ?></td>
           <td><?php echo htmlspecialchars($x['nohp']); ?></td>
-          <td>
-              <a href="edit_siswa.php?nisn=<?php echo htmlspecialchars($x['nisn']); ?>" class="btn-edit">Edit</a>
-              <a href="hapus_siswa.php?nisn=<?php echo htmlspecialchars($x['nisn']); ?>" class="btn-delete">Hapus</a>
-          </td>
-          
-      </tr>
-      
-      <?php
-  }  
-  ?>
-  </tbody>
-                    </table>
-                  </div>
-                  <!-- /.card-body -->  
-              </div>
-                <div class="d-flex justify-content-center mt-1">
-    <a href="tambahsiswa.php" class="btn btn-primary">Tambah Siswa</a>
+         <td>
+                        <a href="edit_siswa.php?nisn=<?php echo htmlspecialchars($x['nisn']); ?>" class="btn btn-sm btn-primary">
+                          <i class="bi bi-pencil"></i> Edit
+                        </a>
+                       <a href="hapus_siswa.php?nisn=<?php echo htmlspecialchars($x['nisn']); ?>" class="btn btn-sm btn-danger delete-btn" data-url="hapus_siswa.php?nisn=<?php echo htmlspecialchars($x['nisn']); ?>">
+  <i class="bi bi-trash"></i> Hapus
+</a>
+
+                      </td>
+        </tr>
+      <?php } ?>
+    </tbody>
+  </table>
 </div>
+
+<!-- Tambahkan tombol tambah siswa di bawah tabel -->
+<div class="text-center mt-3">
+  <a href="tambahsiswa.php" class="btn btn-success">
+    <i class="bi bi-plus-circle"></i> Tambah Siswa
+  </a>
+</div>
+
                 <!-- /.card -->
               </div>
               
@@ -248,6 +248,26 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
          <!-- Tombol Tambah Siswa -->
 
       </main>
+
+      <!-- Modal Konfirmasi Hapus -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="confirmDeleteLabel">Konfirmasi Hapus</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body">
+        Apakah Anda yakin ingin menghapus data ini?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <a href="#" class="btn btn-danger" id="deleteConfirmBtn">Hapus</a>
+      </div>
+    </div>
+  </div>
+</div>
+
       <!--end::App Main-->
       <!--begin::Footer-->
     
@@ -296,6 +316,24 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
         }
       });
     </script>
+
+    <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    const deleteConfirmBtn = document.getElementById('deleteConfirmBtn');
+
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+        const deleteUrl = this.getAttribute('data-url');
+        deleteConfirmBtn.setAttribute('href', deleteUrl);
+        const confirmModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+        confirmModal.show();
+      });
+    });
+  });
+</script>
+
     <!--end::OverlayScrollbars Configure-->
     <!--end::Script-->
   </body>

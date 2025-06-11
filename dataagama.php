@@ -176,40 +176,44 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
   <h3 class="card-title text-center" style="font-size: 1.5rem;">TABEL DATA AGAMA</h3>
 </div>
                   <!-- /.card-header -->
-                  <table class="table table-bordered">
-                      <thead>
-                          <tr>
-                              <th>ID Agama</th>
-                              <th>Agama</th>
-                              <th>Option</th>
-                          </tr>
-                      </thead>
-            <tbody>
-    <?php
-  $no = 1;
-  foreach($dp->tampil_data_agama() as $x){
+             <table class="table table-bordered table-striped table-hover align-middle">
+    <thead class="table-primary text-center">
+        <tr>
+            <th>ID Agama</th>
+            <th>Agama</th>
+            <th>Option</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $no = 1;
+        foreach($dp->tampil_data_agama() as $x){
         ?>
         <tr>
-            <td><?php echo $x['idagama']; ?></td>
+            <td class="text-center"><?php echo $x['idagama']; ?></td>
             <td><?php echo $x['nama_agama']; ?></td>
-            <td>
-              <a href="edit_agama.php?idagama=<?php echo htmlspecialchars($x['idagama']); ?>" class="btn-edit">Edit</a>
-              <a href="hapus_agama.php?idagama=<?php echo htmlspecialchars($x['idagama']); ?>" class="btn-delete">Hapus</a>
+            <td class="text-center">
+                <a href="edit_agama.php?idagama=<?php echo htmlspecialchars($x['idagama']); ?>" class="btn btn-sm btn-primary">
+                   <i class="bi bi-pencil"></i> Edit
+                </a>
+              <a href="hapus_agama.php?idagama=<?php echo htmlspecialchars($x['idagama']); ?>" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-idagama="<?php echo htmlspecialchars($x['idagama']); ?>">
+  <i class="bi bi-trash"></i> Hapus
+</a>
+
             </td>
         </tr>
-      
-      <?php
-  }  
-  ?>
-  </tbody>
-                    </table>
-                  </div>
-                  <!-- /.card-body -->  
+        <?php
+        }
+        ?>
+    </tbody>
+</table>
+     <!-- /.card-body -->  
               </div>
               <div class="d-flex justify-content-center mt-1">
-                  <a href="tambahagama.php" class="btn btn-primary">Tambah Agama</a>
+                  <a href="tambahagama.php" class="btn btn-success">
+    <i class="bi bi-plus-circle"></i> Tambah Agama  
+</a>
               </div>
-            
                 <!-- /.card -->
               </div>
               
@@ -226,6 +230,26 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
          <!-- Tombol Tambah Siswa -->
 
       </main>
+
+      <!-- Modal Konfirmasi Hapus -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Konfirmasi Hapus</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Apakah Anda yakin ingin menghapus data agama ini?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <a id="deleteButton" href="#" class="btn btn-danger">Hapus</a>
+      </div>
+    </div>
+  </div>
+</div>
+
       <!--end::App Main-->
       <!--begin::Footer-->
     
@@ -274,6 +298,18 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
         }
       });
     </script>
+
+    <script>
+  const confirmDeleteModal = document.getElementById('confirmDeleteModal');
+  confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+    const idagama = button.getAttribute('data-idagama');
+    const deleteUrl = `hapus_agama.php?idagama=${encodeURIComponent(idagama)}`;
+    const deleteButton = confirmDeleteModal.querySelector('#deleteButton');
+    deleteButton.setAttribute('href', deleteUrl);
+  });
+</script>
+
     <!--end::OverlayScrollbars Configure-->
     <!--end::Script-->
   </body>

@@ -1,133 +1,150 @@
 <?php
+include "koneksi.php";
+$dp = new database();
+
+// Validasi admin login (opsional jika login diaktifkan)
+session_start();
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
+    header("Location: index.html");
+    exit;
+}
+
+// Proses form
+$error = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nisn = $_POST['nisn'];
-    $nama = $_POST['nama'];
-    $jenis_kelamin = $_POST['jenis_kelamin'];
-    $kode_jurusan = $_POST['kode_jurusan'];
-    $kelas = $_POST['kelas'];
-    $alamat = $_POST['alamat'];
-    $agama = $_POST['agama'];
-    $nohp = $_POST['nohp'];
+    $data = [
+        'nisn'          => $_POST['nisn'],
+        'nama'          => $_POST['nama'],
+        'jenis_kelamin' => $_POST['jenis_kelamin'],
+        'kode_jurusan'  => $_POST['kode_jurusan'],
+        'kelas'         => strtoupper($_POST['kelas']),
+        'alamat'        => $_POST['alamat'],
+        'agama'         => $_POST['agama'],
+        'nohp'          => $_POST['nohp']
+    ];
 
-    // Koneksi ke database
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "sekolah";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die("Koneksi gagal: " . $conn->connect_error);
-    }
-
-    $sql = "INSERT INTO siswa (nisn, nama, jenis_kelamin, kode_jurusan, kelas, alamat, agama, nohp) 
-            VALUES ('$nisn', '$nama', '$jenis_kelamin', '$kode_jurusan', '$kelas', '$alamat', '$agama', '$nohp')";
-
-    if ($conn->query($sql) === TRUE) {
+    if ($dp->simpan_siswa($data)) {
         header("Location: datasiswa.php");
-        exit(); // Penting: hentikan eksekusi setelah redirect
+        exit;
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        $error = "Gagal menyimpan data siswa.";
     }
-
-    $conn->close();
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Data Siswa</title>
-    <link rel="stylesheet" href="tambahsiswa.css">
-    <style>
-/* Kotak peringatan animasi tengah */
-#alert-box {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -60%);
-    background-color: #f44336;
-    color: white;
-    padding: 20px 30px;
-    border-radius: 10px;
-    font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    opacity: 0;
-    pointer-events: none;
-    z-index: 1000;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-#alert-box.alert-show {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translate(-50%, -50%);
-}
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tambah Data Siswa</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f1f4f9;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+    }
+    .card {
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    .form-control:focus {
+      box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+    #alert-box {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #dc3545;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      z-index: 9999;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Form Tambah Data Siswa</h2>
-        <form action="" method="post">
-            <label for="nisn">NISN:</label>
-            <input type="text" id="nisn" name="nisn" required>
 
-            <label for="nama">Nama:</label>
-            <input type="text" id="nama" name="nama" required>
+<div class="container">
+  <div class="card p-4">
+    <h3 class="mb-3 text-center text-primary">Form Tambah Data Siswa</h3>
+    
+    <?php if (!empty($error)): ?>
+      <div class="alert alert-danger"><?= $error ?></div>
+    <?php endif; ?>
 
-            <label for="jenis_kelamin">Jenis Kelamin :</label>
-            <div class="radio-group">
-                <div>
-                    <input type="radio" id="Laki-laki" name="jenis_kelamin" value="L" required>
-                    <label for="Laki-laki">Laki-laki</label>
-                </div>
-                <div>
-                    <input type="radio" id="Perempuan" name="jenis_kelamin" value="P" required>
-                    <label for="P  erempuan">Perempuan</label>
-                </div>
-            </div>
-
-            <label for="kode_jurusan">Jurusan :</label>
-            <input type="text" id="kode_jurusan" name="kode_jurusan" required>
-
-            <label for="kelas">Kelas :</label>
-            <input type="text" id="kelas" name="kelas" required>
-
-            <label for="alamat">Alamat :</label>
-            <input type="text" id="alamat" name="alamat" required>
-
-            <label for="agama">Agama :</label>
-            <input type="text" id="agama" name="agama" required>
-
-            <label for="nohp">No HP :</label>
-            <input type="text" id="nohp" name="nohp" required>
-
-            <input type="submit" name="simpan" value="Tambah Siswa">
-        </form>
-        <div id="alert-box">
-    <span id="alert-message"></span>
+    <form action="" method="post" id="formSiswa">
+      <div class="mb-3">
+        <label for="nisn" class="form-label">NISN</label>
+        <input type="text" class="form-control" id="nisn" name="nisn" required>
+      </div>
+      <div class="mb-3">
+        <label for="nama" class="form-label">Nama</label>
+        <input type="text" class="form-control" id="nama" name="nama" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Jenis Kelamin</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki" value="L" required>
+          <label class="form-check-label" for="laki">Laki-laki</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" value="P" required>
+          <label class="form-check-label" for="perempuan">Perempuan</label>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="kode_jurusan" class="form-label">Kode Jurusan (1-12)</label>
+        <input type="text" class="form-control" id="kode_jurusan" name="kode_jurusan" required>
+      </div>
+      <div class="mb-3">
+        <label for="kelas" class="form-label">Kelas (X/XI/XII)</label>
+        <input type="text" class="form-control" id="kelas" name="kelas" required>
+      </div>
+      <div class="mb-3">
+        <label for="alamat" class="form-label">Alamat</label>
+        <input type="text" class="form-control" id="alamat" name="alamat" required>
+      </div>
+      <div class="mb-3">
+        <label for="agama" class="form-label">Agama (1-7)</label>
+        <input type="text" class="form-control" id="agama" name="agama" required>
+      </div>
+      <div class="mb-3">
+        <label for="nohp" class="form-label">No HP</label>
+        <input type="text" class="form-control" id="nohp" name="nohp" required>
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-success">
+          <i class="bi bi-plus-circle"></i> Tambah Siswa
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 
-    </div>
-    
- <script>
-const form = document.querySelector("form");
-const alertBox = document.getElementById("alert-box");
-const alertMessage = document.getElementById("alert-message");
+<div id="alert-box"></div>
 
-function showAlert(message) {
-    alertMessage.innerHTML = message;
-    alertBox.classList.add("alert-show");
+<script>
+  const form = document.getElementById("formSiswa");
+  const alertBox = document.getElementById("alert-box");
 
+  function showAlert(message) {
+    alertBox.innerHTML = message;
+    alertBox.style.display = "block";
     setTimeout(() => {
-        alertBox.classList.remove("alert-show");
-    }, 5000);
-}
+      alertBox.style.display = "none";
+    }, 4000);
+  }
 
-form.addEventListener("submit", function(e) {
+  form.addEventListener("submit", function (e) {
     const jurusan = document.getElementById("kode_jurusan").value.trim();
     const agama = document.getElementById("agama").value.trim();
     const kelas = document.getElementById("kelas").value.trim().toUpperCase();
@@ -136,44 +153,39 @@ form.addEventListener("submit", function(e) {
 
     let errors = [];
 
-    // Jurusan: angka 1-12
     const jurusanNum = parseInt(jurusan);
     if (isNaN(jurusanNum) || jurusanNum < 1 || jurusanNum > 12) {
-        errors.push("Masukkan kode jurusan yang valid!");
+      errors.push("Kode jurusan harus antara 1–12.");
     }
 
-    // Agama: angka 1-7
     const agamaNum = parseInt(agama);
     if (isNaN(agamaNum) || agamaNum < 1 || agamaNum > 7) {
-        errors.push("Masukkan id agama yang valid!");
+      errors.push("ID agama harus antara 1–7.");
     }
 
-    // Kelas: hanya X, XI, atau XII
     const validKelas = ["X", "XI", "XII"];
     if (!validKelas.includes(kelas)) {
-        errors.push("Kelas harus diisi dengan X, XI, atau XII!");
+      errors.push("Kelas harus X, XI, atau XII.");
     }
 
-    // Alamat: huruf dan spasi minimal 5 karakter
     const regexAlamat = /^[a-zA-Z\s]{5,}$/;
     if (!regexAlamat.test(alamat)) {
-        errors.push("Masukkan alamat yang valid!");
+      errors.push("Alamat minimal 5 huruf dan spasi.");
     }
 
-    // No HP: hanya angka, minimal 10 digit
     const regexNoHp = /^\d{10,}$/;
     if (!regexNoHp.test(nohp)) {
-        errors.push("Masukkan nomor HP yang valid (minimal 10 digit)!");
+      errors.push("No HP harus minimal 10 digit angka.");
     }
 
     if (errors.length > 0) {
-        e.preventDefault();
-        showAlert(errors.join("<br>"));
+      e.preventDefault();
+      showAlert(errors.join("<br>"));
+    } else {
+      document.getElementById("kelas").value = kelas;
     }
-});
+  });
 </script>
-
 
 </body>
 </html>
-

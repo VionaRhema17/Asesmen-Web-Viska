@@ -175,7 +175,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'guru')
 
     <div class="container mt-4">
   <div class="card shadow-lg">
-    <img src="tari.jpg" class="card-img-top" alt="Kegiatan Seni Tari SMKN 6 Surakarta">
+    <img src="TARI2.jpg" class="card-img-top" alt="Kegiatan Seni Tari SMKN 6 Surakarta">
     <div class="card-body text-start">Ekstrakurikuler Seni Tari</h3>
       <p>
         Ekstrakurikuler Seni Tari di SMKN 6 Surakarta merupakan salah satu kegiatan yang bertujuan untuk melestarikan budaya dan mengembangkan bakat seni peserta didik. Dalam kegiatan ini, siswa dibimbing untuk memahami gerakan tari tradisional dan modern dengan teknik yang benar, serta memperkuat rasa percaya diri mereka dalam tampil di depan umum.

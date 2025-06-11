@@ -35,6 +35,18 @@ class database{
     return $hasil;
 }
 
+  function simpan_siswa($data){
+        $stmt = $this->koneksi->prepare("INSERT INTO siswa
+          (nisn,nama,jenis_kelamin,kode_jurusan,kelas,alamat,agama,nohp) VALUES (?,?,?,?,?,?,?,?)");
+        $stmt->bind_param("ssssssss",
+            $data['nisn'],$data['nama'],$data['jenis_kelamin'],
+            $data['kode_jurusan'],$data['kelas'],$data['alamat'],
+            $data['agama'],$data['nohp']);
+        $hasil = $stmt->execute();
+        $stmt->close();
+        return $hasil;
+    }
+
 
 function tampil_data_agama() {
     $hasil = [];
@@ -70,6 +82,10 @@ function tambah_siswa(
              '$nisn','$nama','$jenis_kelamin','$kode_jurusan','$kelas','$alamat','$agama','$nohp')");
     }
 
+function tambah_jurusan($kode_jurusan, $nama_jurusan) {
+    $query = "INSERT INTO jurusan (kode_jurusan, nama_jurusan) VALUES ('$kode_jurusan', '$nama_jurusan')";
+    mysqli_query($this->koneksi, $query);
+}
     
 function tambah_agama($nama_agama) {
     $query = "INSERT INTO agama (nama_agama) VALUES ('$nama_agama')";

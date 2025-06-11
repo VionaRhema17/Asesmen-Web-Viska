@@ -158,7 +158,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'guru')
 
     <div class="container mt-4">
   <div class="card shadow-lg">
-    <img src="Pramuka.jpg" class="card-img-top" alt="Kegiatan Seni Tari SMKN 6 Surakarta">
+    <img src="pramua.jpg" class="card-img-top" alt="Kegiatan Seni Tari SMKN 6 Surakarta">
     <div class="card-body text-start">Ekstrakurikuler Pramuka</h3>
       <p>
         Pramuka adalah salah satu ekstrakurikuler wajib di SMKN 6 Surakarta yang bertujuan untuk membentuk siswa menjadi pribadi yang mandiri, disiplin, bertanggung jawab, serta peduli terhadap lingkungan sosial. Kegiatan kepramukaan mengajarkan banyak keterampilan hidup (life skill), kerja sama tim, dan jiwa kepemimpinan.

@@ -103,3 +103,15 @@ html, body {
 .btn-delete:hover {
     background-color: #c01829; /* Darker red on hover */
 }
+    body {
+  background: #f8f9fa;
+}
+
+.card {
+  border: none;
+}
+
+.form-label {
+  font-size: 0.95rem;
+  color: #495057;
+}

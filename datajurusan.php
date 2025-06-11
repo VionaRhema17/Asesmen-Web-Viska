@@ -177,38 +177,41 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
   <h3 class="card-title text-center" style="font-size: 1.5rem;">TABEL DATA JURUSAN</h3>
 </div>
                   <!-- /.card-header -->
-                  <table class="table table-bordered">
-                      <thead>
-                          <tr>
-                              <th>Kode Jurusan</th>
-                              <th>Nama</th>
-                              <th>Option</th>
-                          </tr>
-                      </thead>
-            <tbody>
-    <?php
-  $no = 1;
-  foreach($dp->tampil_data_jurusan() as $x){
+                <table class="table table-bordered table-striped table-hover align-middle">
+    <thead class="table-primary text-center">
+        <tr>
+            <th>Kode Jurusan</th>
+            <th>Nama</th>
+            <th>Option</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $no = 1;
+        foreach($dp->tampil_data_jurusan() as $x){
         ?>
         <tr>
-            <td><?php echo $x['kode_jurusan']; ?></td>
+            <td class="text-center"><?php echo $x['kode_jurusan']; ?></td>
             <td><?php echo $x['nama_jurusan']; ?></td>
-            <td>
-              <a href="edit_jurusan.php?kode_jurusan=<?php echo htmlspecialchars($x['kode_jurusan']); ?>" class="btn-edit">Edit</a>
-              <a href="hapus_jurusan.php?kode_jurusan=<?php echo htmlspecialchars($x['kode_jurusan']); ?>" class="btn-delete">Hapus</a>
+            <td class="text-center">
+                <a href="edit_jurusan.php?kode_jurusan=<?php echo htmlspecialchars($x['kode_jurusan']); ?>" class="btn btn-sm btn-primary">  <i class="bi bi-pencil"></i> Edit
+              <a href="hapus_jurusan.php?kode_jurusan" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-kode="<?php echo htmlspecialchars($x['kode_jurusan']); ?>">
+  <i class="bi bi-trash"></i> Hapus
+</a>
             </td>
         </tr>
-      
-      <?php
-  }  
-  ?>
-  </tbody>
-                    </table>
+        <?php
+        }
+        ?>
+    </tbody>
+</table>
                   </div>
                   <!-- /.card-body -->  
               </div>
               <div class="d-flex justify-content-center mt-1">
-                  <a href="tambahjurusan.php" class="btn btn-primary">Tambah Jurusan</a>
+                  <a href="tambahjurusan.php" class="btn btn-success">
+    <i class="bi bi-plus-circle"></i> Tambah Jurusan  
+</a>
               </div>
                 <!-- /.card -->
               </div>
@@ -226,6 +229,26 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
          <!-- Tombol Tambah Siswa -->
 
       </main>
+
+
+<!-- Modal Konfirmasi Hapus -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="confirmDeleteLabel"><i class="bi bi-exclamation-triangle-fill"></i> Konfirmasi Hapus</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Apakah Anda yakin ingin menghapus jurusan ini?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <a href="#" class="btn btn-danger" id="confirmDeleteBtn">Hapus</a>
+      </div>
+    </div>
+  </div>
+</div>
       <!--end::App Main-->
       <!--begin::Footer-->
    
@@ -274,6 +297,19 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
         }
       });
     </script>
+<script>
+  const deleteModal = document.getElementById('confirmDeleteModal');
+  const deleteBtn = document.getElementById('confirmDeleteBtn');
+
+  deleteModal.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+    const kodeJurusan = button.getAttribute('data-kode');
+
+    deleteBtn.href = `hapus_jurusan.php?kode_jurusan=${encodeURIComponent(kodeJurusan)}`;
+  });
+</script>
+
+    
     <!--end::OverlayScrollbars Configure-->
     <!--end::Script-->
   </body>

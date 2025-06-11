@@ -168,7 +168,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'guru')
 
     <div class="container mt-4">
   <div class="card shadow-lg">
-    <img src="Paskibra.jpg" class="card-img-top" alt="Kegiatan Seni Tari SMKN 6 Surakarta">
+    <img src="paski.jpg" class="card-img-top" alt="Kegiatan Seni Tari SMKN 6 Surakarta">
     <div class="card-body text-start">Ekstrakurikuler Paskibra</h3>
       <p>
         Paskibra (Pasukan Pengibar Bendera) merupakan salah satu ekstrakurikuler unggulan di SMKN 6 Surakarta yang bertujuan untuk membentuk karakter disiplin, tanggung jawab, dan kepemimpinan pada siswa. Anggota Paskibra dilatih secara intensif untuk melaksanakan tugas upacara dengan baik dan penuh kedisiplinan.
