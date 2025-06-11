@@ -10,3 +10,6 @@
 
 ### 🏠 Dashboard Admin
 ![Dashboard Admin] ![Dashboardadmin](https://github.com/user-attachments/assets/80d88cc3-b79b-4200-a46c-e4d91575abb4)
+
+### Tentang 
+![image](https://github.com/user-attachments/assets/070e0ecd-5973-474d-be21-0e7e9c8fb84e)
