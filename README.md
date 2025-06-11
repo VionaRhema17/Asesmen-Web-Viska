@@ -13,3 +13,13 @@
 
 ### Tentang 
 ![image](https://github.com/user-attachments/assets/070e0ecd-5973-474d-be21-0e7e9c8fb84e)
+
+### Data Siswa 
+![image](https://github.com/user-attachments/assets/893db020-e1ff-467e-be10-4445bfb6d2a2)
+
+### Data Jurusan
+![image](https://github.com/user-attachments/assets/e7d47491-9abc-4ddc-9ba3-81577e500eb7)
+
+### Data Agama
+![image](https://github.com/user-attachments/assets/48aaa9e9-44fe-47f8-a902-893307897a49)
+
